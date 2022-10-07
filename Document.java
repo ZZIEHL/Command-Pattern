@@ -1,7 +1,5 @@
-import java.lang.invoke.WrongMethodTypeException;
 import java.util.ArrayList;
 
-import command.FileManipulator;
 
 public class Document {
     private String fileName;
@@ -68,7 +66,7 @@ public class Document {
     {
         int count = 0;
         String space = "";
-        while(count < spaces)
+        while(count < numSpaces)
         {
             space+= " ";
             count++;
