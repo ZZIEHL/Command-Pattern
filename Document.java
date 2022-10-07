@@ -1,3 +1,4 @@
+import java.lang.invoke.WrongMethodTypeException;
 import java.util.ArrayList;
 
 import command.FileManipulator;
@@ -12,13 +13,15 @@ public class Document {
     }
     public String view()
     {
-        String data = "_________________\n";
+        String data = "_________________\n\n";
         int count = 0;
+        String spaces = LongestLine();
         while(count < lines.size())
         {
-            data = data + "|\t" + lines.get(count) + "\t|\n";
+            data = data + "|     " + lines.get(count) + spaces + "|\n";
+            count+=1;
         }
-        data += "_________________\n";
+        data += "\n_________________\n";
         return data;
     }
     public String append(String line)
@@ -36,5 +39,24 @@ public class Document {
     {
         FileManipulator.writeFile(fileName, lines);
         return "The file has been saved.";
+    }
+    private String LongestLine()
+    {
+        int longest = 0;
+        String space = "";
+        int count = 0;
+        while(count < lines.size())
+        {
+            if(lines.get(count).length() > longest)
+            {
+                longest = lines.get(count).length();
+            }
+        }
+        count = 0;
+        while(count < longest)
+        {
+            space += " ";
+        }
+        return space;
     }
 }
