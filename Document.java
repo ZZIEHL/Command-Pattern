@@ -13,15 +13,17 @@ public class Document {
     }
     public String view()
     {
-        String data = "_________________\n\n";
+        String data = border() + "\n\n";
         int count = 0;
-        String spaces = LongestLine();
+        int longest = LongestLine();
         while(count < lines.size())
         {
-            data = data + "|     " + lines.get(count) + spaces + "|\n";
-            count+=1;
+            int numSpaces = longest - lines.get(count).length();
+            String space = spaceMaker(numSpaces);
+            data += "|     " + lines.get(count) + space + "|\n";
+            count++;
         }
-        data += "\n_________________\n";
+        data += border() + "\n";
         return data;
     }
     public String append(String line)
@@ -40,10 +42,13 @@ public class Document {
         FileManipulator.writeFile(fileName, lines);
         return "The file has been saved.";
     }
-    private String LongestLine()
+    /**
+     * finds the longest line in the array and adds 5 
+     * @return the longest string value + 5 as an int
+     */
+    private int LongestLine()
     {
         int longest = 0;
-        String space = "";
         int count = 0;
         while(count < lines.size())
         {
@@ -52,11 +57,36 @@ public class Document {
                 longest = lines.get(count).length();
             }
         }
-        count = 0;
-        while(count < longest)
+        return (longest + 5);
+    }
+    /**
+     * makes a string of spaces based on the longest string 
+     * @param numSpaces takes in the required spaces to be printed as an integer
+     * @return a string of spaces
+     */
+    private String spaceMaker(int numSpaces)
+    {
+        int count = 0;
+        String space = "";
+        while(count < spaces)
         {
-            space += " ";
+            space+= " ";
+            count++;
         }
         return space;
+    }
+    /**
+     * creates the correctly formatted upper and lower boarder
+     * @return the correctly formatted upper and lower border
+     */
+    private String border()
+    {
+        String borders = "";
+        int count = 0;
+        while(count<(LongestLine()+7))
+        {
+            borders+="_";
+        }
+        return borders;
     }
 }
